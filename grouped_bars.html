@@ -1,25 +1,40 @@
 <!DOCTYPE html>
-<div class="dropdown">
-    <label for="cars">Choose a category:</label>
-    <select name="cars" id="categories" onchange="window.location='./grouped_bars.html?category=' + this.value;">
-      <option disabled selected value> -- select an option -- </option>
-      <option value="restaurants">restaurants</option>
-      <option value="markets">markets</option>
-      <option value="transportation">transportation</option>
-      <option value="leisure">leisure</option>
-      <option value="clothing">clothing</option>
-      <option value="apartment">apartment</option>
-      <option value="salary">salary</option>
+<html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="radar-chart.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<link rel="stylesheet" href="css/typeahead.css">
+<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet" href="./css/weights_hierarchical_circle_packing.css">
 
-    </select>
- </div>
- <svg width="800" height="600"></svg>   
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
 
-    * {
-        font-family: 'Lato', sans-serif;
+<head>
+
+  <!-- JS sources -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+      integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+      crossorigin="anonymous"></script>
+
+  <!-- typeahead js sources -->
+  <script src="js/typeahead.js/bloodhound.js"></script>
+  <script src="js/typeahead.js/typeahead.bundle.js"></script>
+  <script src="js/typeahead.js/typeahead.jquery.js"></script>
+  
+  <script type="text/javascript" src="radar-chart.js"></script>
+  <script type="text/javascript" src="numbeo_comparison.js"></script>
+  <style>
+          * {
         color:  #000;
         font-size: 0.8rem;
     }
@@ -72,28 +87,72 @@
     .v6{
         margin-bottom:4px;
     }
+  </style>
 
-</style>
+  </head>
+
+<nav class="navbar navbar-expand-md navbar-light bg-dark">
+
+    <div class="navbar-collapse justify-content-center" id="navbarNavDropdown">
+
+        <button type="button" class="btn btn-lg btn-info" id="profile-btn" onclick="location.href='./index.html';">
+            <span id="profile-span">Home page</span>
+        </button>
+        <span style="margin-right: 100px;"></span>
+
+        <h3 class="h3 text-white navbar-text">Compare<span style="margin-right: 10px;"></span></h3>
+
+        <form class="form-inline">
+            <input id="city1" class="typeahead form-control mr-sm-2" placeholder="First city" aria-label="Search"
+                type="text" autocomplete="on">
+        </form>
+
+        <h3 class="h3 text-white navbar-text"><span style="margin-right: 10px;"></span>and<span
+                style="margin-right: 10px;"></span></h3>
+
+        <form class="form-inline">
+            <input id="city2" class="typeahead form-control mr-sm-2" placeholder="Second city" aria-label="Search"
+                type="text" autocomplete="on">
+        </form>
+
+        <h3 class="h3 text-white navbar-text"><span style="margin-right: 10px;"></span>in category:<span
+            style="margin-right: 10px;"></span></h3>
+
+        <form class="form-inline">
+            <br>
+            <select name="categories" id="categories">
+              <option disabled selected value> -- select an option -- </option>
+              <option value="restaurants">restaurants</option>
+              <option value="markets">markets</option>
+              <option value="transportation">transportation</option>
+              <option value="leisure">leisure</option>
+              <option value="clothing">clothing</option>
+              <option value="apartment">apartment</option>
+              <option value="salary">salary</option>
+        
+            </select>
+        </form>
+
+        <ul class="navbar-nav">
+            <li>
+               <!--- <button id="submit-cities-button" type="button" onclick="window.location='./radar.html?a_city=' + this.value;" class="btn btn-primary bg-info">Go!</button>-->
+                <button id="submit-cities-button" type="button" onclick='reload_page(document.getElementById("city1").value, document.getElementById("city2").value, document.getElementById("categories").value)' class="btn btn-primary bg-info">Go!</button>
+            </li>
+        </ul>
+
+    </div>
+</nav>
+
+ <svg width="800" height="800"></svg>   
+<script src="https://d3js.org/d3.v4.min.js"></script>
 <script type="text/javascript" src="numbeo_comparison.js"></script>
 <script>
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-    const category1 = urlParams.get('category')
-
-    a_city = "Bucharest";
-    b_city = "Budapest";
-
-    var categories_data = {restaurants : ["meal_inexpensive_restaurant", "meal_mid_range_restaurant", "mcdonalds_combo", "domestic_beer","imported_beer", "cappucino", "coke_pepsi", "water"],
-                       markets : ["milk", "bread", "eggs", "cheese", "chicken", "banana", "tomato", "potato", "lettuce", "water", "beer", "cigarettes"],
-                       transportation : ["one_way_ticket", "monthly_pass", "taxi_start", "taxi_1km", "taxi_1h", "gasoline", "volkswagen", "toyota"], 
-                       utitlities : ["basic", "prepaid_mobile", "internet"],
-                       leisure : ["fitness_club", "tennis_court", "cinema"],
-                       childcare : ["preschool", "primary_school"],
-                       clothing : ["pair_of_jeans", "summer_dress", "running_shoes", "business_shoes"], 
-                       rent : ["ap_1bedroom_center", "ap_1bedroom_outside", "ap_3bedroom_center", "ap_3bedroom_outside"],
-                       apartment : ["buy_apartment_center","buy_apartment_outside"],
-                       salary : ["net_salary", "mortgage_interest"]}
+    const category1 = urlParams.get('category');
+    var a_city = urlParams.get('a_city');
+    var b_city = urlParams.get('b_city');
 
     var data = []
     sel_cat = category1;
@@ -223,7 +282,7 @@
 
     function fillTmpl(label,v2,v21,a_city,b_city){
         /*return '<h4>'+label + ' samples</h4><h4 style="margin-bottom:4px">'+Math.round((Math.abs(v21 - v2) / v2) * 1000) / 10 + '% Faster </h4><span class="v2">Old Version: ' + v2 + 's <br/></span><span class="v21">New Version: '+ v21 + 's <br/></span>'*/
-        return '<span class="v5">'+ label +' '+ '<span class="v5">' + Math.round((Math.abs(v21 - v2) / v2) * 1000) / 10 + '% '+comparison(v21,v2)+' </span>' +' </br> </span>'+'<span class="v2">'+a_city+' :' + v2 + 's <br/></span><span class="v21">'+b_city+' :'+v21 + ' <br/></span>'
+        return '<span class="v5">'+ label +' '+ '<span class="v5">' + Math.round((Math.abs(v21 - v2) / v2) * 1000) / 10 + '% '+comparison(v21,v2)+' </span>' +' </br> </span>'+'<span class="v2">'+a_city+' :' + v2 + ' EUR <br/></span><span class="v21">'+b_city+' :'+v21 + ' EUR <br/></span>'
     }
 
     experiment.append("rect")
@@ -248,7 +307,7 @@
 
     experiment.append("text")
         .attr("x", function (d) {
-            return xScale(d.v2) + paddingLeft + 30
+            return xScale(d.v2) + paddingLeft + 45
         })
         .attr("y", function (d) {
             return yScale(d.label);
@@ -283,7 +342,7 @@
 
     experiment.append("text")
         .attr("x", function (d) {
-            return xScale(d.v21) + paddingLeft + 35
+            return xScale(d.v21) + paddingLeft + 45
         })
         .attr("y", function (d) {
             return yScale(d.label) + 25;
@@ -298,7 +357,7 @@
 
     experiment.append("text")
         .attr("x", function (d) {
-            return xScale(d.v21) + paddingLeft + 10
+            return xScale(d.v21) + paddingLeft + 45
         })
         .attr("y", function (d) {
             return yScale(d.label) + 25;
@@ -318,9 +377,11 @@
         .attr("y2", height+legendHeight + 15);
 </script>
 
+<script src="js/navbar.js"></script>
+<script src="js/readSelectedCities.js"></script>
 <script>
-/* When the user clicks on the button, 
-toggle between hiding and showing the dropdown content */
-var e = document.getElementById("categories");
-var category = e.value;
+    function reload_page(city1, city2, cat){
+        window.location='./grouped_bars.html?a_city='+city1+'&b_city='+city2+'&category='+cat;
+      }
 </script>
+</html>

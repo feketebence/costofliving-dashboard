@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+<link rel="stylesheet" href="radar-chart.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<link rel="stylesheet" href="css/typeahead.css">
+<link rel="stylesheet" href="./css/main.css">
+<link rel="stylesheet" href="./css/weights_hierarchical_circle_packing.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+
+<head>
+  <style>
+    .radar-chart .area {
+      fill-opacity: 0.7;
+    }
+    .radar-chart.focus .area {
+      fill-opacity: 0.3;
+    }
+    .radar-chart.focus .area.focused {
+      fill-opacity: 0.9;
+    }
+    .area.germany, .germany .circle {
+      fill: #FFD700;
+      stroke: none;
+    }
+    .area.argentina, .argentina .circle {
+      fill: #ADD8E6;
+      stroke: none;
+    }
+    #legend{
+      margin: 0 auto;
+    }
+  </style>
+  <!-- JS sources -->
+  <script src="https://d3js.org/d3.v4.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+      integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+      crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+      integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+      crossorigin="anonymous"></script>
+
+  <!-- typeahead js sources -->
+  <script src="js/typeahead.js/bloodhound.js"></script>
+  <script src="js/typeahead.js/typeahead.bundle.js"></script>
+  <script src="js/typeahead.js/typeahead.jquery.js"></script>
+  
+  <script type="text/javascript" src="http://d3js.org/d3.v3.js"></script>
+  <script type="text/javascript" src="radar-chart.js"></script>
+  <script type="text/javascript" src="numbeo_comparison.js"></script>
+  
+
+  </head>
+
+  <body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-dark">
+
+      <div class="navbar-collapse justify-content-center" id="navbarNavDropdown">
+
+          <button type="button" class="btn btn-lg btn-info" id="profile-btn" onclick="location.href='./index.html';">
+              <span id="profile-span">Home page</span>
+          </button>
+          <span style="margin-right: 100px;"></span>
+
+          <h3 class="h3 text-white navbar-text">Compare<span style="margin-right: 10px;"></span></h3>
+
+          <form class="form-inline">
+              <input id="city1" class="typeahead form-control mr-sm-2" placeholder="First city" aria-label="Search"
+                  type="text" autocomplete="on">
+          </form>
+
+          <h3 class="h3 text-white navbar-text"><span style="margin-right: 10px;"></span>and<span
+                  style="margin-right: 10px;"></span></h3>
+
+          <form class="form-inline">
+              <input id="city2" class="typeahead form-control mr-sm-2" placeholder="Second city" aria-label="Search"
+                  type="text" autocomplete="on">
+          </form>
+
+          <ul class="navbar-nav">
+              <li>
+                 <!--- <button id="submit-cities-button" type="button" onclick="window.location='./radar.html?a_city=' + this.value;" class="btn btn-primary bg-info">Go!</button>-->
+                  <button id="submit-cities-button" type="button" onclick='reload_page(document.getElementById("city1").value, document.getElementById("city2").value)' class="btn btn-primary bg-info">Go!</button>
+              </li>
+          </ul>
+
+      </div>
+  </nav>
+  <div id="legend-container">
+        <svg id="legend" height=50 width=500></svg>
+  </div>
+
+  <script type="text/javascript">
+
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      var a_city = urlParams.get('a_city');
+      var b_city = urlParams.get('b_city');
+
+      var categories = ["restaurants","markets","utilities","leisure","clothing"];
+      var a_city_data = "" + a_city + ",";
+      var b_city_data = "" + b_city + ",";
+      for (const j in categories){
+        var category_sum = 0;
+        for (const i in categories_data[categories[j]]){
+          category_sum = category_sum + json_data[a_city][categories[j]][categories_data[categories[j]][i]];
+        }
+        a_city_data = a_city_data + String(category_sum) + ",";
+      }
+      a_city_data = a_city_data.slice(0, -1);
+      a_city_data = a_city_data + "\n";
+
+      for (const j in categories){
+            var category_sum = 0;
+            for (const i in categories_data[categories[j]]){
+              category_sum = category_sum + json_data[b_city][categories[j]][categories_data[categories[j]][i]];
+            }
+        b_city_data = b_city_data + String(category_sum) + ",";
+        }
+        b_city_data = b_city_data.slice(0, -1);
+        b_city_data = b_city_data + "\n";
+        var header = "city,restaurants,markets,utilities,leisure,clothing \n";
+        var text_data =  header + a_city_data + b_city_data;
+
+        
+
+    function showRadar(){
+    data = [];
+    var chart = RadarChart.chart();
+    
+    // var c = document.getElementById("data").value,
+    var c = text_data;
+        w = 600;
+        h = 600;
+    csv = c.split("\n").map(function(i){return i.split(",")})
+    headers = []
+    csv.forEach(function(item, i){
+      if(i==0){
+        headers = item;
+      }else{
+        newSeries = {};
+        item.forEach( function(v, j){
+          if(j==0){
+            newSeries.className = v;
+            newSeries.axes = [];
+          }else{
+            newSeries.axes.push({"axis":[headers[j]], "value": parseFloat(v)});
+          }
+        });
+        data.push(newSeries);
+      }
+    })
+  RadarChart.defaultConfig.radius = 3;
+  RadarChart.defaultConfig.w = w;
+  RadarChart.defaultConfig.h = h;
+  RadarChart.draw("#chart-container", data);
+  function animate(elem,time) {
+      if( !elem) return;
+      var to = elem.offsetTop;
+      var from = window.scrollY;
+      var start = new Date().getTime(),
+          timer = setInterval(function() {
+              var step = Math.min(1,(new Date().getTime()-start)/time);
+              window.scrollTo(0,(from+step*(to-from))+1);
+              if( step == 1){ clearInterval(timer);};
+          },25);
+          window.scrollTo(0,(from+1));
+      }
+
+  var divVal = document.getElementById('chart-container');
+  animate(divVal,600);
+  }
+  window.onload = function() {
+    showRadar();
+  };
+
+  // select the svg area
+  var legend = d3.select("#legend")
+
+  // Handmade legend
+  legend.append("circle").attr("cx",30).attr("cy",30).attr("r", 6).style("fill", "#FFD700")
+  legend.append("text").attr("x", 50).attr("y", 30).text(b_city).style("font-size", "15px").attr("alignment-baseline","middle")
+
+  legend.append("circle").attr("cx",380).attr("cy",30).attr("r", 6).style("fill", "#ADD8E6")
+  legend.append("text").attr("x", 400).attr("y", 30).text(a_city).style("font-size", "15px").attr("alignment-baseline","middle")
+
+  </script>
+
+  <script src="js/navbar.js"></script>
+  <script src="js/readSelectedCities.js"></script>
+
+
+
+  <div id="chart-container"></div>
+  <script type="text/javascript">
+  document.getElementById("chart-container").setAttribute("align", "center");
+  document.getElementById("legend-container").setAttribute("align", "center");
+      //RadarChart.defaultConfig.levelTick = true;
+      function reload_page(city1, city2){
+        window.location='./radar.html?a_city='+city1+'&b_city='+city2;
+      }
+  </script>
+
+  </body>
+  </html>
