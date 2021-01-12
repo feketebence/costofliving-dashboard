@@ -1,3 +1,5 @@
+var header_text = "name,parent,value\nOrigin,,\nrent,Origin,\napartment,Origin,\nsalary,Origin,"
+
 var categories_data = {restaurants : ["meal_inexpensive_restaurant", "meal_mid_range_restaurant", "mcdonalds_combo", "domestic_beer","imported_beer", "cappucino", "coke_pepsi", "water"],
                        markets : ["milk", "bread", "eggs", "cheese", "chicken", "banana", "tomato", "potato", "lettuce", "water", "beer", "cigarettes"],
                        transportation : ["one_way_ticket", "monthly_pass", "taxi_start", "taxi_1km", "taxi_1h", "gasoline", "volkswagen", "toyota"], 
