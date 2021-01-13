@@ -633,6 +633,7 @@ function fillDataWithWeights(dataq, weightsOutput) {
 }
 
 let finalData = fillDataWithWeights(rebuiltData, weightsOutput);
+rebuiltData = null;
 
 // console.log(finalData);
 
