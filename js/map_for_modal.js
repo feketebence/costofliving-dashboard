@@ -13,7 +13,11 @@ d3.queue()
 var canvas = d3.select("#map-for-modal").append("svg")
     .attr("width", width)
     .attr("height", height)
-    .attr("class", "canvas");
+    .attr("class", "canvas")
+    .call(d3.zoom().on("zoom",function(){
+            canvas.attr("transform", d3.event.transform).transition().duration(100)
+        }))
+        .append("g");
 
 var data1 = d3.json("https://raw.githubusercontent.com/feketebence/costofliving-dashboard/main/data/world.json")
 var data2 = d3.csv("https://raw.githubusercontent.com/feketebence/costofliving-dashboard/main/data/city_index_coord.csv")
@@ -61,7 +65,7 @@ function ready(error, data1, data2) {
         .enter()
         .append("circle")
         .attr("stroke", "black")
-        .attr("r", 4)
+        .attr("r", 6)
         .attr("cx", function (d) {
             var coordinates = projection([d.lon, d.lat])
             return coordinates[0];
@@ -70,7 +74,7 @@ function ready(error, data1, data2) {
             var coordinates = projection([d.lon, d.lat])
             return coordinates[1];
         })
-        .attr("fill", function (d) { return colorScale(d.CoL) })
+        .attr("fill", function (d) { return colorScale(d.CoL) }).style("opacity",.7)
         .on("mouseover", tip.show).attr("cursor", "pointer")
         .on("mouseout", tip.hide);
 
