@@ -1,0 +1,50 @@
+.d3-tip_scatter{
+    color: white;
+    font-weight: 600;
+    font-family: 'Oswald','sans-serif';
+    padding: 10px;
+    font-size: 15px;
+    border-color: red;
+    background-color: #808000;
+    border: thick double black;
+    cursor: pointer;
+    font-family: 'Oswald','sans-serif';
+}
+
+#x_label, #y_label{
+    font-family: 'Oswald','sans-serif';
+    font-weight: 600;
+}
+/*
+
+#scatter{
+    position: absolute;
+    top: 20%;
+}
+*/
+
+#fill{
+    position: absolute;
+    color:coral;
+    font-weight: 800;
+    background: none;
+    border: none;
+    font-family: 'Oswald','sans-serif';
+    font-size: 18px;
+}
+
+#selectItem, #selectItem_2, #selectCategory{
+    color: darkcyan;
+    font-weight: 600;
+    font-family: 'Oswald','sans-serif';
+    font-weight: 800;
+    font-size: 18px;
+}
+
+#selectItem,selectItem_2, #selectCategory:hover{
+    color: darkcyan;
+    font-weight: 600;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 18px;
+}
