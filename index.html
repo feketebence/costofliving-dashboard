@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="./css/map_for_modal.css">
 
     <link rel="stylesheet" href="./css/radar-chart.css">
+    <link rel="stylesheet" href="css/chord.css">
+    <link rel="stylesheet" href="css/scatter.css">
 
     <!-- JS sources -->
     <script src="https://d3js.org/d3.v4.js"></script>
@@ -750,7 +752,31 @@
                 <!--treemap2-->
                 <div id="treemap_2"></div>
             </div>
-        </div>
+             <div class="col-lg-6">
+                 <!--chord-->
+                <div id="chord"></div>
+            </div>
+            <div class="col-lg-6">
+                <!--scatter-->
+                <div id="scatter">
+                    <select id="selectCategory" onchange="change_item(); change_item_2()">
+                        <option>Choose a category</option>
+                    </select>
+        
+                    <select id="selectItem" >
+                        <option>Choose an item</option>
+                    </select>
+        
+                    <select id="selectItem_2">
+                        <option>Choose another item</option>
+                    </select>
+        
+        
+                    <div id="scatter_vizu"></div>
+        
+                    <button id=fill onclick="fill_items(); update(scatter_data);" >Submit your choice</button>
+                </div>
+            </div>
         
         <div class="row">
             <a href="grouped_bars.html" target="_blank">
@@ -763,6 +789,13 @@
                     <h3>Radar Chart</h3>
                 </div>
             </a>
+            <a href="Column_chart/column.html" target="_blank">
+                <div class="col-lg-6" style="height: 200px;">
+                    <h3>Column Chart</h3>
+                
+                </div>
+            
+            </a>
             
             <div class="col-lg-6">
             </div>
@@ -774,13 +807,7 @@
             </div>
         </div>
 
-
-
-
-        
-
-
-    </div>
+        </div>
 
 </body>
 
@@ -794,6 +821,8 @@
 
 
 <script type="text/javascript" src="js/map_for_modal.js" defer></script>
+<script type="text/javascript" src="js/scatter.js" defer></script>
+<script type="text/javascript" src="js/chord.js" defer></script>
 
 <script src="numbeo_comparison.js"></script>
 <script src="treemap.js"></script>
