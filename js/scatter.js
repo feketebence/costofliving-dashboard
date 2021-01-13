@@ -85365,7 +85365,7 @@ function change_item_2(){
 
 var scatter_data = [];
 
-function fill_items(){
+function fill_items_scatter(){
     scatter_data = [];
     for (var l=0 ; l<a.length ; l++){
             //console.log(a[l]);
@@ -85378,30 +85378,30 @@ function fill_items(){
     //var data_viz = scatter_data
         
     // set the dimensions and margins of the graph
-    var margin = {top: 10, right: 30, bottom: 35, left: 60},
-        width = 600 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom;
+    var margin_scatter = {top: 10, right: 30, bottom: 35, left: 60},
+        width_scatter = 500 - margin.left - margin.right,
+        height_scatter = 500 - margin.top - margin.bottom;
 
     // append the svg object to the body of the page
     var svg_scatter = d3.select("#scatter_vizu")
       .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
+        .attr("width", width_scatter + margin_scatter.left + margin_scatter.right)
+        .attr("height", height_scatter + margin_scatter.top + margin_scatter.bottom)
       .append("g")
         .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
+              "translate(" + margin_scatter.left + "," + margin_scatter.top + ")");
 
 
      // Add X axis
       var x = d3.scaleLinear()
-        .range([ 0, width ])
+        .range([ 0, width_scatter ])
       
     var xAxis = svg_scatter.append("g")
-        .attr("transform", "translate(0," + height + ")").attr("class","x_coord")
+        .attr("transform", "translate(0," + height_scatter + ")").attr("class","x_coord")
 
       // Add Y axis
       var y = d3.scaleLinear()
-        .range([ height, 0]);
+        .range([ height_scatter, 0]);
 
     var yAxis = svg_scatter.append("g")
         .call(d3.axisLeft(y)).attr("class","y_coord")
@@ -85418,34 +85418,34 @@ function fill_items(){
           .style("fill", "#69b3a2")*/
     var u;
 
-     var tip = d3.tip()
+     var tip_scatter = d3.tip()
                .attr("class", "d3-tip_scatter")
                 .offset([-10, 0])
                 .html(function(d,i) {
                     return "City: " + d.city + "<br>" + d.item_1 + ": " + d.value_1 + "<br>" + d.item_2 + ": " + d.value_2;  
 
                });
-        svg_scatter.call(tip);
+        svg_scatter.call(tip_scatter);
+    
     
     function update(data) {
-        $("#x_label").remove();
-        $("#y_label").remove();
+        $("#x_label_scatter").remove();
+        $("#y_label_scatter").remove();
         
 // x axis label        
     svg_scatter.append("text")
-    .data(scatter_data)
     .attr("text-anchor", "end")
-    .attr("x", width)
-    .attr("y", height + margin.top + 22).transition().duration(1000)
-    .text(item).attr("id", "x_label");
+    .attr("x", width_scatter)
+    .attr("y", height_scatter + margin_scatter.top + 22)
+    .text(item).attr("id", "x_label_scatter");
 
 // y axis label:
     svg_scatter.append("text")
     .attr("text-anchor", "end")
     .attr("transform", "rotate(-90)")
-    .attr("y", -margin.left+20)
-    .attr("x", -margin.top)
-    .text(item_2).attr("id","y_label");
+    .attr("y", -margin_scatter.left+20)
+    .attr("x", -margin_scatter.top)
+    .text(item_2).attr("id","y_label_scatter");
         
          // Add X axis
         x 
@@ -85478,8 +85478,8 @@ function fill_items(){
           .attr("fill", "#69b3a2");
         
         u
-            .on("mouseover",tip.show)
-            .on("mouseout",tip.hide);
+            .on("mouseover",tip_scatter.show)
+            .on("mouseout",tip_scatter.hide);
               
        
     }
