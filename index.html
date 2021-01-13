@@ -727,6 +727,7 @@
                 <!-- radar-chart -->
                 <iframe src='' style='border:0; width: 100%; height: 100%;'></iframe>
             </div>
+            <!-- map -->
             <div class="col-lg-6 ">
                 <h4 class="text-center">Cities by Cost of Living</h4>
                 <div id="map-for-modal"></div>
@@ -753,30 +754,33 @@
                 <div id="treemap_2"></div>
             </div>
              <div class="col-lg-6">
-                 <!--chord-->
-                <div id="chord"></div>
-            </div>
-            <div class="col-lg-6">
                 <!--scatter-->
-                <div id="scatter">
+                 <div id="scatter">
                     <select id="selectCategory" onchange="change_item(); change_item_2()">
                         <option>Choose a category</option>
                     </select>
-        
+
                     <select id="selectItem" >
                         <option>Choose an item</option>
                     </select>
-        
+
                     <select id="selectItem_2">
                         <option>Choose another item</option>
                     </select>
-        
-        
+
+
                     <div id="scatter_vizu"></div>
         
-                    <button id=fill onclick="fill_items(); update(scatter_data);" >Submit your choice</button>
+                    <button id=fill_scatter onclick="fill_items_scatter(); update(scatter_data);" >Submit your choice</button>
                 </div>
+            
             </div>
+       
+             <div class="col-lg-6">
+                 <!--chord-->
+                <div id="chord"></div>
+            </div>
+        </div>
         
         <div class="row">
             <a href="grouped_bars.html" target="_blank">
