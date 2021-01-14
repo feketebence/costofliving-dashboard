@@ -162,8 +162,8 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
 
     /*var c20 = "#A6CEE3";
     var c21 = "#B2DF8A"; */
-    var c20 = "#1F78B4";
-    var c21 = "#33A02C";
+    var c20 = "#AFC52F";
+    var c21 = "#ff6600";
     var v5 = "#000"
 
 
@@ -307,7 +307,7 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
 
     experiment.append("text")
         .attr("x", function (d) {
-            return xScale(d.v2) + paddingLeft + 45
+            return xScale(d.v2) + paddingLeft + 55
         })
         .attr("y", function (d) {
             return yScale(d.label);
@@ -317,7 +317,7 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
         .attr("fill", "#000")
         .attr("text-anchor", "end")
         .text(function (d) {
-            return d.v2
+            return d.v2+" €"
         });
 
     experiment.append("rect")
@@ -342,7 +342,7 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
 
     experiment.append("text")
         .attr("x", function (d) {
-            return xScale(d.v21) + paddingLeft + 45
+            return xScale(d.v21) + paddingLeft + 55
         })
         .attr("y", function (d) {
             return yScale(d.label) + 25;
@@ -352,7 +352,7 @@ integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xX
         .attr("fill", "#000")
         .attr("text-anchor", "end")
         .text(function (d) {
-            return d.v21
+            return d.v21 + " €"
         });
 
     experiment.append("text")

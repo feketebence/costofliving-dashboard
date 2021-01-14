@@ -1,0 +1,71 @@
+#column{
+    position: absolute;
+    top: 10%;
+}
+
+#backtomain{
+    position: absolute;
+    left: 48%;
+    color: darkred;
+    font-weight: 800;
+    background: none;
+    font-family: 'Oswald','sans-serif';
+    border: none;
+    font-size: 18px;
+}
+
+#fill{
+    position: absolute;
+    color:coral;
+    font-weight: 800;
+    background: none;
+    left: 31%;
+    border: none;
+    font-family: 'Oswald','sans-serif';
+    font-size: 18px;
+}
+
+#fill:hover{
+    cursor: pointer;
+}
+
+#selectCity, #selectCategory{
+    color: darkcyan;
+    font-weight: 600;
+    font-family: 'Oswald','sans-serif';
+    font-weight: 800;
+    font-size: 18px;
+}
+
+#selectCity, #selectCategory:hover{
+    color: darkcyan;
+    font-weight: 600;
+    cursor: pointer;
+    font-weight: 800;
+    font-size: 18px;
+}
+
+.d3-tip{
+    color: #0b3b33;
+    font-weight: 600;
+    font-family: 'Oswald','sans-serif';
+    padding: 10px;
+    font-size: 12px;
+    border-color: red;
+    border: thick double #118a76;
+}
+
+#values_reset{
+    position: absolute;
+    color: darkcyan;
+    font-weight: 800;
+    background: none;
+    font-family: 'Oswald','sans-serif';
+    left: 42%;
+    border: none;
+    font-size: 18px;
+}
+
+#values_reset:hover{
+    cursor:pointer;
+}

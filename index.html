@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="./css/map_for_modal.css">
 
     <link rel="stylesheet" href="./css/radar-chart.css">
+    <link rel="stylesheet" href="css/chord.css">
+    <link rel="stylesheet" href="css/scatter.css">
 
     <!-- JS sources -->
     <!-- Load D3.js -->
@@ -726,24 +728,24 @@
         <div class="row">
             <div class="col-lg-6">
                 <!-- radar-chart -->
-                <iframe src='' style='border:0; width: 100%; height: 100%;'></iframe>
+                <div class="radarChart2" id="radarchart" style="display: inline-flex;"></div>
             </div>
             <div class="col-lg-6 ">
                 <h4 class="text-center">Cities by Cost of Living</h4>
                 <div id="map-for-modal"></div>
             </div>
         </div>
+        
+        
         <div class="row">
             <div class="col-lg-6">
-                <h2>First selected city is <span id="city1-placeholder">city1</span></h2>
-
-
+                <h2>Cost of Living Index in <span id="city1-placeholder">city1</span> is <span id="city1-COL"></span></h2>
             </div>
-            <div class="col-lg-6 ">
-                <h2>Second selected city is <span id="city2-placeholder">city2</span></h2>
-
+            <div class="col-lg-6">
+                <h2>Second selected city in <span id="city2-placeholder">city2</span> is <span id="city2-COL"></span></h2>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-6">
                 <!--treemap1-->
@@ -756,26 +758,31 @@
         </div>
 
         <div class="row">
-            <a href="grouped_bars.html" target="_blank">
-                <div class="col-lg-6 " style="height: 200px;">
-                    <h3>City VS City horizontal bar-chart</h3>
-                </div>
-            </a>
-            <a href="radar.html" target="_blank">
-                <div class="col-lg-6 " style="height: 200px;">
-                    <h3>Radar Chart</h3>
-                </div>
-            </a>
+            <div class="col-lg-6">
+                <div id="scatter">
+                    <select id="selectCategory" onchange="change_item(); change_item_2()">
+                        <option>Choose a category</option>
+                    </select>
 
+                    <select id="selectItem" >
+                        <option>Choose an item</option>
+                    </select>
+
+                    <select id="selectItem_2">
+                        <option>Choose another item</option>
+                    </select>
+
+
+                    <div id="scatter_vizu"></div>
+        
+                    <button id=fill_scatter onclick="fill_items_scatter(); update(scatter_data);" >Submit your choice</button>
+                </div>
+            </div>
             <div class="col-lg-6">
+                <div id="chord"></div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-6">
-            </div>
-            <div class="col-lg-6">
-            </div>
-        </div>
+
         <div class="row">
             <h3>Distibution of Cities by category (weighted)</h3>
         </div>
@@ -828,22 +835,27 @@
                   </div>
                 </div>
               </form>
-                    
-                    
-            
         </div>
         <div class="row" id="boxplotdiv-container">
             <div id="boxplotdiv" style="height: 300px;"></div>
-
         </div>
 
+        <div class="row" id="boxplotdiv-container">
+            <h2>Other charts</h2>
+        </div>
 
-
-
-
-
+        <div class="row">
+            <a href="grouped_bars.html" target="_blank">
+            <button type="button" class="btn btn-info">
+        
+                <h3>City VS City horizontal bar-chart</h3>
+        
+            </button>
+            </a>
+        </div>
 
     </div>
+    <!-- END of main div -->
 
 </body>
 
@@ -862,16 +874,22 @@
 
 
 <script type="text/javascript" src="js/map_for_modal.js" defer></script>
+<script type="text/javascript" src="js/scatter.js" defer></script>
+<script type="text/javascript" src="js/chord.js" defer></script>
 
 <script src="numbeo_comparison.js"></script>
 <script src="treemap.js"></script>
+<script src="radar_v3.js"></script>
+<script src="radar_setup.js"></script>
 <script>
-    document.getElementById("submit-cities-button").addEventListener("click", function () {
-        $("#treemap_1").empty();
-        $("#treemap_2").empty();
-        show_tree(document.getElementById("city1").value, "treemap_1");
-        show_tree(document.getElementById("city2").value, "treemap_2");
-    });
+    document.getElementById("submit-cities-button").addEventListener("click", function() {
+    $("#treemap_1").empty();
+    $("#treemap_2").empty();
+    $("#radarchart").empty();
+    show_tree(document.getElementById("city1").value,"treemap_1");
+    show_tree(document.getElementById("city2").value,"treemap_2");
+    showRadar(document.getElementById("city1").value, document.getElementById("city2").value);
+});
 </script>
 
 </html>

@@ -1,0 +1,10 @@
+.d3-tip_chord{
+    color: #0b3b33;
+    font-weight: 600;
+    font-family: 'Oswald','sans-serif';
+    padding: 10px;
+    font-size: 12px;
+    border-color: red;
+    border: thick double #118a76;
+    background: #E0FFFF;
+}
