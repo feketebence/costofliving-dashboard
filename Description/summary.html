@@ -11,6 +11,43 @@
 <body>
             <h1>Summary of the Project</h1>
             <div class="descriptions">
+                <h2>Scraping the data</h2>
+                <p>  The source of our data is the "https://www.numbeo.com" website. Because of the fact that the website consists of html 
+                    pages, pulling the data from the website was possible via the beautifulsoup python library. Firstly we gathered the list 
+                    of cities by scraping a table containing all the city names. We also pulled the name of categories serapartely from 
+                    one city page. After these, we crated a data frame in pandas in which the column names were the category names. Then 
+                    we scraped through the tables containing the relevant data on each city page by iterating through all the city names and
+                    loading its link with the given currency in parameter. 
+                    For example: https://www.numbeo.com/cost-of-living/in/Oslo?displayCurrency=EUR 
+
+                </p>
+                <h2>Radar Chart</h2>
+                <p>   The first chart on our dashboard is a radar chart visualization which compares the the chosen cities from the navbar
+                    in 5 categories respectively: prices in restaurants, prices in markets, cost of utilities, cost of leisure activities and
+                    prices of clothes. The values presented on the chart represent the aggregated value of the given category. On one of the 
+                    axis appear the prices label which shows the price scale from 0 to the maximum value of all the category values accross 
+                    the two cities. The scale is divided into 5 equal sized (40 unit) ranges. The cities are also differentiated by colors, 
+                    explained my a legend appearing on the right side of the chart.
+                </p>
+                <h2>Treemaps</h2>
+                <p>   In the second section of our dashboard are two treemap visualizations, each representing one chosen city. The treemaps 
+                    show us how the cost items relate to each other in 3 categories: salary, rent costs and prices of apartments. We can also 
+                    evaluate the prices of several apartment types, depending on the location (outside resident area or center) and the number
+                    of bedrooms. The chart shows us how the salary relates to housing costs in proportion. The exact values apprear below the 
+                    item names.
+                </p>
+                <h2>City vs city horizontal bar-chart</h2>
+                <p> 
+                     We created a visualization which shows us the exact values of each items of one chosen category. The user has to choose 
+                     two cities to compare. Moreover the user has to choose one category which he is interested by. In this visualization one 
+                     can choose from various categories: restaurants, markets, transportation, leisure, clothing, apartment and salary. After
+                     clicking on the "Go!" button, the items of the chosen category will be listed. The chart has two main parts: on the left 
+                     side apprear the list of items and the right side appear the comparisons. One comparison consists of two horizonatal bar 
+                     chart representing each city in the give item. On the right of the bars appear the exact values of each items in euro. 
+                     By hovering over the charts we can see by what margin is the second (compared) city cheaper or more expensive than the 
+                     first city. The bars are distinguishable also by colors, given the associations by the legend appearing in the upper side
+                     of the visualization.
+                </p>
                 <h2>Map</h2>
                 <p>   The map visualization of our dashboard projects the whole world, with around 580 cities added, which are presented as
                 circles on the map. Hovering over these circles will individually show some information. More concretely the name of the
