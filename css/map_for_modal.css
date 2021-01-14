@@ -5,7 +5,12 @@
         background: lightblue;
         border-width: thick;
         border-style: solid;
+        cursor: grab;
     }
+
+.canvas:active{
+    cursor: grabbing;
+}
     
 .d3-tip{
         font-family: 'Oswald', sans-serif;
