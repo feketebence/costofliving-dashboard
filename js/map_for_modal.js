@@ -75,7 +75,7 @@ function ready(error, data1, data2) {
             return coordinates[1];
         })
         .attr("fill", function (d) { return colorScale(d.CoL) }).style("opacity",.7)
-        .on("mouseover", tip.show).attr("cursor", "pointer")
+        .on("mouseover", tip.show).attr("cursor", "crosshair")
         .on("mouseout", tip.hide);
 
     /*canvas.call(d3.zoom()
