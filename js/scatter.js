@@ -85475,10 +85475,10 @@ function fill_items_scatter(){
           .attr("cy", function(d) { return y(d.value_2); })
           .attr("r", 4)
           .attr("stroke","black")
-          .attr("fill", "#69b3a2");
+          .attr("fill", "#48D1CC");
         
         u
-            .on("mouseover",tip_scatter.show)
+            .on("mouseover",tip_scatter.show).attr("cursor","crosshair")
             .on("mouseout",tip_scatter.hide);
               
        
