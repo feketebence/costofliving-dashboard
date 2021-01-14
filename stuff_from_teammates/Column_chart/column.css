@@ -4,11 +4,10 @@
 }
 
 #fill{
-    position: fixed;
+/*    position: fixed;*/
     color:coral;
     font-weight: 800;
     background: none;
-    left: 24%;
     border: none;
     font-family: 'Oswald','sans-serif';
     font-size: 18px;
@@ -45,17 +44,20 @@
 }
 
 #values_reset{
-    position: fixed;
+/*    position: fixed;*/
     color: darkcyan;
     font-weight: 800;
     background: none;
     font-family: 'Oswald','sans-serif';
-    left: 32%;
     border: none;
     font-size: 18px;
 }
 
 #values_reset:hover{
     cursor:pointer;
+}
+
+button{
+    display: inline-block;
 }
 
