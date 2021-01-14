@@ -742,7 +742,7 @@
                 <h2>Cost of Living Index in <span id="city1-placeholder">city1</span> is <span id="city1-COL"></span></h2>
             </div>
             <div class="col-lg-6">
-                <h2>Second selected city in <span id="city2-placeholder">city2</span> is <span id="city2-COL"></span></h2>
+                <h2>Cost of Living Index in <span id="city2-placeholder">city2</span> is <span id="city2-COL"></span></h2>
             </div>
         </div>
 
@@ -756,9 +756,11 @@
                 <div id="treemap_2"></div>
             </div>
         </div>
+        <hr>
 
         <div class="row">
             <div class="col-lg-6">
+                <h2>Item comparison scatterplot</h2>
                 <div id="scatter">
                     <select id="selectCategory" onchange="change_item(); change_item_2()">
                         <option>Choose a category</option>
@@ -782,7 +784,7 @@
                 <div id="chord"></div>
             </div>
         </div>
-
+<hr>
         <div class="row">
             <h3>Distibution of Cities by category (weighted)</h3>
         </div>
@@ -839,7 +841,14 @@
         <div class="row" id="boxplotdiv-container">
             <div id="boxplotdiv" style="height: 300px;"></div>
         </div>
+        <hr>
 
+        <div class="row">
+            <h3>Top 30 Most Expensive Cities (weighted)</h3>
+            <div id="most_expensive_barchart" style="height: 400px;"></div>
+        </div>
+
+        <hr>
         <div class="row" id="boxplotdiv-container">
             <h2>Other charts</h2>
         </div>
@@ -862,9 +871,17 @@
             </a>
         </div>
 
+        <div class="row" style="height: 50px;">
+            
+        </div>
+
     </div>
     <!-- END of main div -->
 
+    <div class="container-fluid bg-dark text-center text-white" style="height: 60px;">
+        <div style="height: 20px;"></div>
+        <h5>Data source: <a href="https://www.numbeo.com/cost-of-living/" style="color: white;">numbeo.com</a></h5>
+    </div>
 </body>
 
 <script src="js/navbar.js"></script>
@@ -889,6 +906,10 @@
 <script src="treemap.js"></script>
 <script src="radar_v3.js"></script>
 <script src="radar_setup.js"></script>
+
+<script src="js/col_display.js"></script>
+<script src="js/most_expensive_barchart.js"></script>
+
 <script>
     document.getElementById("submit-cities-button").addEventListener("click", function() {
     $("#treemap_1").empty();

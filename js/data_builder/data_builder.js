@@ -539,7 +539,9 @@ function buildData(dataq) {
         builtData[cityKey] = {};
 
         let categories = {};
-        let attributes = {};
+        let attributes = {
+          score: 42
+        };
 
         for (let [categoryKey, category] of Object.entries(dataq[cityKey])) {
 
@@ -594,6 +596,7 @@ function fillDataWithWeights(dataq, weightsOutput) {
     for (let [cityKey, city] of Object.entries(dataq)) {
 
         let categIdx = 0;
+        // let totalScore = 0;
         for (let [categoryKey, category] of Object.entries(dataq[cityKey].category)) {
 
             let categoryWeightSum = 0;
@@ -625,7 +628,9 @@ function fillDataWithWeights(dataq, weightsOutput) {
             dataq[cityKey].category[categoryKey].categValueSum = categoryValueSum;
             dataq[cityKey].category[categoryKey].categSizeSum = categorySizeSum;
             categIdx++;
+            // totalScore+= categorySizeSum;
         }
+        // dataq[cityKey].attributes.score = totalScore;
     }
 
     return dataq;

@@ -25,4 +25,6 @@ submitButton.addEventListener("click", function() {
 
     console.log(selectedCity1);
     console.log(selectedCity2);
+
+    updateCOLdisplay();
 });
