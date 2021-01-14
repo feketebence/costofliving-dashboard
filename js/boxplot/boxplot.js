@@ -1,4 +1,4 @@
-let selectedCategories = [];
+let selectedCategories = ['restaurants', 'markets'];
 
 let boxplotCheckboxRestaurants = document.querySelector("#boxplot-checkbox_0");
 let boxplotCheckboxMarkets = document.querySelector("#boxplot-checkbox_1");
@@ -12,6 +12,9 @@ let boxplotCheckboxApartment = document.querySelector("#boxplot-checkbox_8");
 let boxplotCheckboxSalary = document.querySelector("#boxplot-checkbox_9");
 
 let checkboxes = [boxplotCheckboxRestaurants, boxplotCheckboxMarkets, boxplotCheckboxTransportation, boxplotCheckboxUtilities, boxplotCheckboxLeisure, boxplotCheckboxChildcare, boxplotCheckboxClothing, boxplotCheckboxRent, boxplotCheckboxApartment, boxplotCheckboxSalary];
+
+let boxPlotDiv = document.querySelector("#boxplotdiv");
+let boxPlotDivContainer = document.querySelector("#boxplotdiv-container");
 
 function getSelectedCategories() {
     let selected = [];
@@ -72,22 +75,50 @@ function filterDataForBoxplot(selectedCategories, data) {
         // console.log(data[cityKey].category.categSizeSum);
 
         for (let [categKey, categ] of Object.entries(data[cityKey].category)) {
-            console.log(cityKey, categKey, categ.categSizeSum);
-            console.log(containsObject(categKey, selectedCategories))
             if (containsObject(categKey, selectedCategories)) {
-                console.log(categKey + " is in selected categs");
+                filteredData[categKey].push(data[cityKey].category[categKey].categSizeSum);
             }
         }
-
     }
+
+    let returnArr = [];
+
+    for(let [categKey, categ] of Object.entries(filteredData)) {
+        if(categ.length > 0) {
+            returnArr.push({
+                x: filteredData[categKey],
+                type: 'box',
+                name: categKey
+            });
+        }
+    }
+
+    return returnArr;
 }
-filterDataForBoxplot(selectedCategories, finalData);
+filteredDataForBoxplot = filterDataForBoxplot(selectedCategories, finalData);
 
 // adding event listeners to the checkboxes
 for (i in checkboxes) {
     checkboxes[i].addEventListener('change', function() {
         selectedCategories = getSelectedCategories();
         console.log(selectedCategories);
+        filteredDataForBoxplot = filterDataForBoxplot(selectedCategories, finalData);
+
+        let heightScaler = selectedCategories.length;
+        boxPlotDiv.style.height = heightScaler * 150 + "px";
+        
+        // drawing Plotly boxplot
+        Plotly.newPlot('boxplotdiv', filteredDataForBoxplot, boxplotLayout);
+
     })
 }
+
+Plotly.newPlot('boxplotdiv', filteredDataForBoxplot);
+let boxplotLayout = {
+    // title: "Distibution of Cities by category (weighted)",
+    width: boxPlotDivContainer.clientWidth
+};
+
+boxPlotDiv.style.height = "300px";
+
 
