@@ -85290,8 +85290,9 @@ var data = json_data;
                         .attr("y", function(d) { return y(d.value); })
                         .attr("width", x.bandwidth())
                         .attr("height", function(d) { return height - y(d.value); })
+                        .style("stroke", "black")
                        // .attr("fill", "#69b3a2") 
-                        .on("mouseover",tip.show).attr("cursor","pointer")
+                        .on("mouseover",tip.show).attr("cursor","crosshair")
                         .on("mouseout", tip.hide);
             
                 full_viz.attr("fill", function(d){ return d.color});
