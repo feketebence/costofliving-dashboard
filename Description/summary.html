@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+        <title>Summary of the project</title>
+        <link rel="stylesheet" href="summary.css">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+</head>
+
+    
+<body>
+            <h1>Summary of the Project</h1>
+            <div class="descriptions">
+                <h2>Map</h2>
+                <p>   The map visualization of our dashboard projects the whole world, with around 580 cities added, which are presented as
+                circles on the map. Hovering over these circles will individually show some information. More concretely the name of the
+                city, the country in which this city can be found, and a certain Cost of Living Index. The mentioned Index reflects 
+                the situation of the cities, with a number between 0 and in some cases over 100. 
+                All these numbers are compared to New York City, which has a COL index of 100.
+                The colors of the circles are based on the value of the index.
+                What had to be done in order to get the exact coordinates of all the cities was to geocode the locations with the help
+                of the Google Cloud service, but in order to get locations, we needed to have the data ready. We did a little
+                web scraping from the numbeo.com website, which is highly recommended, in our opinion, for these kind of purposes.
+                We got the data, so we could geocode the locations, after which we have created the visualization with the help of the
+                D3 javascript library.
+                </p>
+                <h2>Chord</h2>
+                <p>   This visualization requires a special kind of data set to be able to work with in D3. It works with a square matrix,
+                    in which the data is stored. But let us begin with the visualization. First there is a certain number of categories.
+                    Each one has a name, in this case the name is a continent or a bigger part of the world. Every category has a different
+                    color. This visualization is showing us the connection between these entities. In this particular case we can see the
+                    number of people from a certain part of the world, who have moved to the other parts, and vice versa.
+                    If we were to hover over a category, which are represented by the arcs of the circle, then only the chords belonging to
+                    this category are shown. And if we hover over a chord, then only this chord will be fully visible, and the rest is going
+                    to fade away a bit. A click on the chord will show information, for example X people from Europe to Africa and Y people
+                    from Africa to Europe. Simple as that. We found the data on a statistical and news website, called qz.com.
+                </p>
+                <h2>Column Chart</h2>
+                <p>Our column chart is one of the more traditional visualizations that we have created in our project. Although, what is not to be considered
+                    traditional is that there is not only one possible outcome for the chart, but around 5800, as we have mentioned before we have processed over
+                    580 cities, and we have 10 categories. Each city combined with each category will result in a different outcome, because of the data, on which
+                    the visualization is based on. We have gathered the data by scraping the page numbeo.com, where prices of cities, considering different
+                    viewpoints, were listed. In the perspective of usefulness, by projecting the same category for different cities, we can easily compare them,
+                    not only by examining the bars, but by hovering over them, in which case the exact price of the selected item from that category will be shown.
+                    For instance let's say that the user selects the city Madrid and the category Utilities, the visualization will project the Basic and Internet
+                    items, by hovering over them, the exact price will turn visible for the user. By following the same procedure but with another city, comparing
+                    these is going to be simple.
+                </p>
+                
+                <h2>Scatter Plot</h2>
+                <p>
+                    Maybe of one the oldest visualization type would be the scatter plot. It is a mathematical diagram that uses Cartesian coordinates in order to
+                    be able to display values for typically two variables for a set of data. The pattern of the resulting points reveals any correlation present.
+                    In our case the two variables will be two items from a category. We are going to need to select the two items, which we want to project as the
+                    previously mentioned variables. A category in this case is the same as in the previous one. This time we don't need to select a city, because
+                    the data will plotted for all of the cities. Hovering over a datapoint, the City, the two selected items, and the values for each of them will 
+                    turn visible. When the user would like to update the plot with other data, then all there is to do would be to reselect the category and the two 
+                    items. The scatter plot will automatically change its points. The data originates from the same numbeo.com.
+                </p>
+            </div>
+           
+            
+
+</body>
+
+
+
+
+</html>
