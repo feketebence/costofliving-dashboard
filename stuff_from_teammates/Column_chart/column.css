@@ -4,7 +4,7 @@
 }
 
 #fill{
-    position: absolute;
+    position: fixed;
     color:coral;
     font-weight: 800;
     background: none;
@@ -45,7 +45,7 @@
 }
 
 #values_reset{
-    position: absolute;
+    position: fixed;
     color: darkcyan;
     font-weight: 800;
     background: none;
