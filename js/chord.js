@@ -99,7 +99,7 @@ var margin = {left:90, top:90, right:90, bottom:90},
     .style("fill", function(d) { return colors(d.source.index); })
     .style("opacity", opacityDefault)
     .attr("d", path)
-    .on("mouseover",fade_arc(.1))
+    .on("mouseover",fade_arc(.1)).attr("cursor", "crosshair")
     .on("mouseout", fade_arc(opacityDefault))
     .on("click", tip.show);
 
