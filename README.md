@@ -1,3 +1,3 @@
 # Cost of living - Data dashboard
 
-## work in progress
+## <del>work in progress</del> Abandoned project
